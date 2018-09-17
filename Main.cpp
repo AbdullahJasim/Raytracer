@@ -3,11 +3,17 @@
 #include <vector>
 #include <fstream>
 
-#include "vec3.h"
+#include "Ray.h"
 
 using namespace std;
 
 void produceImage(vector<string> rows);
+
+vec3 color(const Ray& r) {
+	vec3 unit_direction = unit_vector(r.direction());
+	float t = 0.5f * (unit_direction.y() + 1.0f);
+	return (1.0f - t) * vec3(1.0f, 1.0f, 1.0f) + t * vec3(0.5f, 0.7f, 1.0f);
+}
 
 int main() {
 	int nx = 200;
@@ -18,7 +24,7 @@ int main() {
 
 	for (int i = ny - 1; i >= 0; i--) {
 		for (int j = 0; j < nx; j++) {
-			vec3 col(float(j) / float(nx), float(i) / float(ny), 0.2);
+			vec3 col(float(j) / float(nx), float(i) / float(ny), 0.2f);
 
 			int ir = int(255.99 * col[0]);
 			int ig = int(255.99 * col[1]);
@@ -37,7 +43,7 @@ void produceImage(vector<string> rows) {
 	ofstream outputFile;
 	outputFile.open("image.ppm");
 
-	for (int i = 0; i < rows.size(); i++) {
+	for (unsigned int i = 0; i < rows.size(); i++) {
 		outputFile << rows[i];
 	}
 
