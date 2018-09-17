@@ -3,6 +3,7 @@
 #define RAY
 
 #include "vec3.h"
+#include "GlobalVec3Operators.cpp"
 
 class Ray {
 public:
