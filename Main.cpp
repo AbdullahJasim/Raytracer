@@ -3,6 +3,8 @@
 #include <vector>
 #include <fstream>
 
+#include "vec3.h"
+
 using namespace std;
 
 void produceImage(vector<string> rows);
@@ -16,14 +18,12 @@ int main() {
 
 	for (int i = ny - 1; i >= 0; i--) {
 		for (int j = 0; j < nx; j++) {
-			float r = float(j) / float(nx);
-			float g = float(i) / float(ny);
-			float b = 0.2;
-			int ir = int(255.99 * r);
-			int ig = int(255.99 * g);
-			int ib = int(255.99 * b);
+			vec3 col(float(j) / float(nx), float(i) / float(ny), 0.2);
 
-			//cout << ir << " " << ig << " " << ib << "\n";
+			int ir = int(255.99 * col[0]);
+			int ig = int(255.99 * col[1]);
+			int ib = int(255.99 * col[2]);
+
 			string temp = to_string(ir) + " " + to_string(ig) + " " + to_string(ib) + "\n";
 			rows.push_back(temp);
 		}
