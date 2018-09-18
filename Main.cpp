@@ -40,11 +40,19 @@ int main() {
 
 	for (int i = ny - 1; i >= 0; i--) {
 		for (int j = 0; j < nx; j++) {
-			float u = float(j) / float(nx);
-			float v = float(i) / float(ny);
+			Vec3 col(0.0f, 0.0f, 0.0f);
+			
+			for (int s = 0; s < ns; s++) {
+				//float r = (float)rand() / RAND_MAX;
+				float u = float(j + rand() / RAND_MAX) / float(nx);
+				float v = float(i + rand() / RAND_MAX) / float(ny);
 
-			Ray ray = cam.get_ray(u, v);
-			Vec3 col = color(ray, surfaces_list);
+				Ray ray = cam.get_ray(u, v);
+				Vec3 p = ray.point_at_parameter(2.0f);
+				col += color(ray, surfaces_list);
+			}
+
+			col = col / float(ns);
 
 			int ir = int(255.99 * col[0]);
 			int ig = int(255.99 * col[1]);
@@ -56,7 +64,7 @@ int main() {
 	}
 
 	save_image(rows);
-	//system("pause");
+	system("pause");
 }
 
 void save_image(vector<string> rows) {

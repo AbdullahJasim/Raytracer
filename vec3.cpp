@@ -1,17 +1,17 @@
-#include "vec3.h"
+#include "Vec3.h"
 
 using namespace std;
 
 float e[3];
 
 //in
-inline istream& operator>> (istream &is, vec3 &t) {
+inline istream& operator>> (istream &is, Vec3 &t) {
 	is >> t.e[0] >> t.e[1] >> t.e[2];
 	return is;
 }
 
 //out
-inline ostream& operator<<(ostream &os, const vec3 &t) {
+inline ostream& operator<<(ostream &os, const Vec3 &t) {
 	os << t.e[0] << " " << t.e[1] << " " << t.e[2];
 	return os;
 }
