@@ -2,6 +2,8 @@
 #ifndef SURFACES_LIST
 #define SURFACES_LIST
 
+#include "Render_Surface.h"
+
 class Surfaces_List : public Render_Surface {
 public:
 	Render_Surface **list;

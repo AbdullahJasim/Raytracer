@@ -4,10 +4,13 @@
 
 #include "Ray.h"
 
+class Material;
+
 struct hit_point {
 	float t;
 	Vec3 point;
 	Vec3 normal;
+	Material *material;
 };
 
 class Render_Surface {

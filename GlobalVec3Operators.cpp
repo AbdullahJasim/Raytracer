@@ -1,3 +1,7 @@
+#pragma once
+#ifndef GLOBAL_VEC_OPERATIONS
+#define GLOBAL_VEC_OPERATIONS
+
 #include "Vec3.h"
 
 //+
@@ -46,6 +50,10 @@ inline Vec3 cross(const Vec3 &v1, const Vec3 &v2) {
 		v1.e[0] * v2.e[2] - v1.e[2] * v2.e[0],
 		v1.e[0] * v2.e[1] - v1.e[1] * v2.e[0]
 	);
+}
+
+inline Vec3 reflect(const Vec3& v, const Vec3& n) {
+	return v - (2 * dot(v, n) * n);
 }
 
 //+=
@@ -102,3 +110,15 @@ inline Vec3& Vec3::operator/=(const float t) {
 inline Vec3 unit_vector(Vec3 v) {
 	return v / v.length();
 }
+
+inline Vec3 random_in_unit_sphere() {
+	Vec3 p;
+
+	//Keep creating random vectors until we get one inside the unit sphere
+	do {
+		p = 2.0f * Vec3((float)rand() / RAND_MAX, (float)rand() / RAND_MAX, (float)rand() / RAND_MAX) - Vec3(1.0f, 1.0f, 1.0f);
+	} while (p.squared_length() >= 1.0f);
+
+	return p;
+}
+#endif

@@ -116,12 +116,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GlobalVec3Operators.cpp" />
+    <ClCompile Include="Lambert.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Metal.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="Vec3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Material.h" />
     <ClInclude Include="Render_Surface.h" />
     <ClInclude Include="Ray.h" />
     <ClInclude Include="Sphere.h" />

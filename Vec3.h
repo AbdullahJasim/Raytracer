@@ -37,6 +37,8 @@ public:
 	inline Vec3& operator*=(const float t); //vector1 * constant
 	inline Vec3& operator/=(const float t); //vector1 / constant
 
+	inline Vec3 random_in_unit_sphere();
+
 	inline float length() const { return sqrt(e[0]* e[0] + e[1] * e[1] + e[2] * e[2]); } //get length of a vector
 	inline float squared_length() const { return (e[0] * e[0] + e[1] * e[1] + e[2] * e[2]); } //get the square of its vector
 	inline void make_unit_vector(); //normalize the vector
