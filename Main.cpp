@@ -12,11 +12,24 @@ using namespace std;
 
 void save_image(vector<string> rows);
 
+Vec3 random_in_unit_sphere() {
+	Vec3 p;
+
+	//Keep creating random vectors until we get one inside the unit sphere
+	do {
+		p = 2.0f * Vec3((float) rand() / RAND_MAX, (float) rand() / RAND_MAX, (float) rand() / RAND_MAX) - Vec3(1.0f, 1.0f, 1.0f);
+	} while (p.squared_length() >= 1.0f);
+
+	return p;
+}
+
 Vec3 color(const Ray& ray, Render_Surface* surfaces_list) {
 	hit_point hp;
 
-	if (surfaces_list->hit(ray, 0.0f, FLT_MAX, hp)) {
-		return 0.5 * Vec3(hp.normal.x() + 1, hp.normal.y() + 1, hp.normal.z() + 1);
+	if (surfaces_list->hit(ray, 0.001f, FLT_MAX, hp)) {
+		//Add diffusion
+		Vec3 target = hp.point + hp.normal + random_in_unit_sphere();
+		return (0.5 * color(Ray(hp.point, target - hp.point), surfaces_list));
 	} else {
 		Vec3 unit_direction = unit_vector(ray.direction());
 		float t = 0.5f * (unit_direction.y() + 1.0f);
@@ -43,9 +56,8 @@ int main() {
 			Vec3 col(0.0f, 0.0f, 0.0f);
 			
 			for (int s = 0; s < ns; s++) {
-				//float r = (float)rand() / RAND_MAX;
-				float u = float(j + rand() / RAND_MAX) / float(nx);
-				float v = float(i + rand() / RAND_MAX) / float(ny);
+				float u = float(j + (float) rand() / RAND_MAX) / float(nx);
+				float v = float(i + (float)rand() / RAND_MAX) / float(ny);
 
 				Ray ray = cam.get_ray(u, v);
 				Vec3 p = ray.point_at_parameter(2.0f);
@@ -53,6 +65,8 @@ int main() {
 			}
 
 			col = col / float(ns);
+			//Gamma correction
+			col = Vec3(sqrt(col[0]), sqrt(col[1]), sqrt(col[2]));
 
 			int ir = int(255.99 * col[0]);
 			int ig = int(255.99 * col[1]);

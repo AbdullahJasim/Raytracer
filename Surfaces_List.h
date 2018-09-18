@@ -18,7 +18,7 @@ bool Surfaces_List::hit(const Ray& ray, float t_min, float t_max, hit_point& hp)
 	double current_closest = t_max;
 
 	for (int i = 0; i < list_size; i++) {
-		if (list[i]->hit(ray, t_min, current_closest, temp)) {
+		if (list[i]->hit(ray, t_min, (float) current_closest, temp)) {
 			hit_anything = true;
 			current_closest = temp.t;
 			hp = temp;
