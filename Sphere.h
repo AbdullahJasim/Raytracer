@@ -6,11 +6,12 @@
 
 class Sphere : public Render_Surface {
 public:
+	Vec3 center;
+	float radius;
+
 	Sphere() {}
 	Sphere(Vec3 point, float r) : center(point), radius(r) {};
 	virtual bool hit(const Ray& ray, float t_min, float t_max, hit_point& hp) const;
-	Vec3 center;
-	float radius;
 };
 
 #endif
