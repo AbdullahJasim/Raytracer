@@ -115,6 +115,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Dielectric.cpp" />
     <ClCompile Include="GlobalVec3Operators.cpp" />
     <ClCompile Include="Lambert.cpp" />
     <ClCompile Include="Main.cpp" />

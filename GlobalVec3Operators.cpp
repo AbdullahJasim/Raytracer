@@ -52,6 +52,7 @@ inline Vec3 cross(const Vec3 &v1, const Vec3 &v2) {
 	);
 }
 
+//Reflection
 inline Vec3 reflect(const Vec3& v, const Vec3& n) {
 	return v - (2 * dot(v, n) * n);
 }
@@ -120,5 +121,29 @@ inline Vec3 random_in_unit_sphere() {
 	} while (p.squared_length() >= 1.0f);
 
 	return p;
+}
+
+
+//Refraction, using Snell's law
+//Side note: If n is normalized and used instead of n it creates a really cool effect
+inline bool refract(const Vec3& v, const Vec3& n, float ni_over_nt, Vec3& refracted) {
+	Vec3 uv = unit_vector(v);
+	float dt = dot(uv, n);
+	float discriminant = 1.0f - ni_over_nt * ni_over_nt * (1.0f - dt * dt);
+
+	if (discriminant > 0) {
+		refracted = ni_over_nt * (uv - n * dt) - n * sqrt(discriminant);
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+//Schlick's formula for glass reflectivity
+inline float schlick(float cosine, float ref_index) {
+	float r0 = (1 - ref_index) / (1 + ref_index);
+	r0 = r0 * r0;
+	return (r0 + (1 - r0) * pow((1 - cosine), 5));
 }
 #endif

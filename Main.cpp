@@ -10,6 +10,7 @@
 #include "Material.h"
 #include "Lambert.cpp"
 #include "Metal.cpp"
+#include "Dielectric.cpp"
 
 using namespace std;
 
@@ -43,12 +44,13 @@ int main() {
 	vector<string> rows;
 	rows.push_back("P3\n" + to_string(nx) + " " + to_string(ny) + "\n255\n");
 
-	Render_Surface *list[4];
-	list[0] = new Sphere(Vec3(0.0f, 0.0f, -1.0f), 0.5, new Lambert(Vec3(0.8f, 0.3f, 0.3f)));
+	Render_Surface *list[5];
+	list[0] = new Sphere(Vec3(0.0f, 0.0f, -1.0f), 0.5, new Lambert(Vec3(0.1f, 0.2f, 0.5f)));
 	list[1] = new Sphere(Vec3(0, -100.5, -1.0f), 100, new Lambert(Vec3(0.8f, 0.8f, 0.0f)));
-	list[2] = new Sphere(Vec3(1.0f, 0.0f, -1.0f), 0.5, new Metal(Vec3(0.8f, 0.6f, 0.2f)));
-	list[3] = new Sphere(Vec3(-1.0f, 0.0f, -1.0f), 0.5, new Metal(Vec3(0.8f, 0.8f, 0.8f)));
-	Render_Surface *surfaces_list = new Surfaces_List(list, 4);
+	list[2] = new Sphere(Vec3(1.0f, 0.0f, -1.0f), 0.5, new Metal(Vec3(0.8f, 0.6f, 0.2f), 0.0f));
+	list[3] = new Sphere(Vec3(-1.0f, 0.0f, -1.0f), 0.5, new Dielectric(1.5f));
+	list[4] = new Sphere(Vec3(-1.0f, 0.0f, -1.0f), -0.45, new Dielectric(1.5f));
+	Render_Surface *surfaces_list = new Surfaces_List(list, 5);
 	Camera cam;
 
 	for (int i = ny - 1; i >= 0; i--) {
