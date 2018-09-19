@@ -17,5 +17,4 @@ class Render_Surface {
 public:
 	virtual bool hit(const Ray& ray, float t_min, float t_max, hit_point& point) const = 0;
 };
-
 #endif
