@@ -45,13 +45,13 @@ int main() {
 	rows.push_back("P3\n" + to_string(nx) + " " + to_string(ny) + "\n255\n");
 
 	Render_Surface *list[5];
-	list[0] = new Sphere(Vec3(0.0f, 0.0f, -1.0f), 0.5, new Lambert(Vec3(0.1f, 0.2f, 0.5f)));
-	list[1] = new Sphere(Vec3(0, -100.5, -1.0f), 100, new Lambert(Vec3(0.8f, 0.8f, 0.0f)));
-	list[2] = new Sphere(Vec3(1.0f, 0.0f, -1.0f), 0.5, new Metal(Vec3(0.8f, 0.6f, 0.2f), 0.0f));
-	list[3] = new Sphere(Vec3(-1.0f, 0.0f, -1.0f), 0.5, new Dielectric(1.5f));
-	list[4] = new Sphere(Vec3(-1.0f, 0.0f, -1.0f), -0.45, new Dielectric(1.5f));
+	list[0] = new Sphere(Vec3(0.0f, 0.0f, -1.0f), 0.5f, new Lambert(Vec3(0.1f, 0.2f, 0.5f)));
+	list[1] = new Sphere(Vec3(0, -100.5, -1.0f), 100.0f, new Lambert(Vec3(0.8f, 0.8f, 0.0f)));
+	list[2] = new Sphere(Vec3(1.0f, 0.0f, -1.0f), 0.5f, new Metal(Vec3(0.8f, 0.6f, 0.2f), 0.0f));
+	list[3] = new Sphere(Vec3(-1.0f, 0.0f, -1.0f), 0.5f, new Dielectric(1.5f));
+	list[4] = new Sphere(Vec3(-1.0f, 0.0f, -1.0f), -0.45f, new Dielectric(1.5f));
 	Render_Surface *surfaces_list = new Surfaces_List(list, 5);
-	Camera cam;
+	Camera cam(Vec3(-2, 2, 1), Vec3(0, 0, -1), Vec3(0, 1, 0), 90, float(nx)/float(ny));
 
 	for (int i = ny - 1; i >= 0; i--) {
 		for (int j = 0; j < nx; j++) {
